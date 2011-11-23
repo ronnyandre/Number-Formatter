@@ -2,10 +2,10 @@
 
 $plugin_info = array(
 	'pi_name'        => 'Number Formatter',
-	'pi_version'     => '0.1',
+	'pi_version'     => '0.2',
 	'pi_author'      => 'Ronny-André Bendiksen',
 	'pi_author_url'  => 'http://ronny-andre.no',
-	'pi_description' => 'Formats numbers with custom definable number of decimals, decimals and thousands separators.',
+	'pi_description' => 'Formats numbers with custom number of decimals and separators for decimals and thousands.',
 	'pi_usage'       => Number_Formatter::usage()
 );
 
@@ -21,7 +21,12 @@ class Number_Formatter {
 		$dec_point     = $this->EE->TMPL->fetch_param('decimal_point') ? $this->EE->TMPL->fetch_param('decimal_point') : ',';
 		$thousands_sep = $this->EE->TMPL->fetch_param('thousands_sep') ? $this->EE->TMPL->fetch_param('thousands_sep') : ' ';
 		
-		$this->return_data = number_format($number, $decimals, $dec_point, $thousands_sep);
+		$prefix        = $this->EE->TMPL->fetch_param('prefix');
+		$suffix        = $this->EE->TMPL->fetch_param('suffix');
+		
+		$this->return_data = $prefix.
+							 number_format($number, $decimals, $dec_point, $thousands_sep).
+							 $suffix;
 	}
 	
 	public function usage() {
@@ -41,9 +46,13 @@ Number of decimals is 0.
 Decimal point separator is comma.
 Thousands separator is space.
 
-You can override the defaults as well:
+Overriding the defaults:
 {exp:number_formatter decimals="2" decimal_point="," thousands_separator="."}1000000{/exp:number_formatter}
 Returns 1.000.000,00
+
+You can prefix and suffix text if you'd like:
+{exp:number_formatter decimals="2" decimal_point="," thousands_separator="." prefix="$" suffix=" (USD)"}1000000{/exp:number_formatter}
+Returns $1.000.000,00 (USD)
 
 
 =====================================================
@@ -58,6 +67,23 @@ Character to use as decimal point.
 
 thousands_sep
 Character to use as thousands separator.
+
+prefix
+Text to prefix the number formatting.
+
+suffix
+Text to suffix the number formatting.
+
+
+=====================================================
+Changelog
+=====================================================
+
+23/11/2011 - 0.2
+Added parameters for prefix and suffix.
+
+23/11/2011 - 0.1
+Initial (basic) version.
 		<?php
 		$buffer = ob_get_contents();
 		ob_end_clean();
