@@ -1,0 +1,32 @@
+Number Formatter lets you format numbers with custom amount of decimals, custom decimal and thousands separators.
+
+=====================================================
+Basic Usage
+=====================================================
+
+To format a number, use the following code:
+{exp:number_formatter}1000000{/exp:number_formatter}
+Returns 1 000 000
+
+Defaults:
+Number of decimals is 0.
+Decimal point separator is comma.
+Thousands separator is space.
+
+You can override the defaults as well:
+{exp:number_formatter decimals="2" decimal_point="," thousands_separator="."}1000000{/exp:number_formatter}
+Returns 1.000.000,00
+
+
+=====================================================
+Parameters
+=====================================================
+
+decimals
+Number of decimals in number.
+
+decimal_point
+Character to use as decimal point.
+
+thousands_sep
+Character to use as thousands separator.
