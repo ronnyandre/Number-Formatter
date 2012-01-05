@@ -25,7 +25,7 @@ class Number_Formatter {
 		$suffix        = $this->EE->TMPL->fetch_param('suffix');
 		
 		$this->return_data = $prefix.
-							 number_format($number, $decimals, $dec_point, $thousands_sep).
+							 number_format((double)$number, $decimals, $dec_point, $thousands_sep).
 							 $suffix;
 	}
 	
